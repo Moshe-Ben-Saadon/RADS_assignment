@@ -1,6 +1,13 @@
 import pymongo
 
+
 def data_retrieval(size, database):
+    # Connect to MongoDB
+    client = pymongo.MongoClient("mongodb+srv://"
+                                 "MBS:12345678MBS@cluster0.7fqbr.mongodb.net/Cluster0?retryWrites=true&w=majority")
+    # Retrieve database
+    db = client["advertisements"]
+
     counter = 0
     data = list()
     list_of_chunks = list()
