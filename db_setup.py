@@ -25,5 +25,5 @@ for x in range(1, 20001):
     print('Created {0} of 20000 as {1}'.format(x, result.inserted_id))
 
 # Announce upon completion
-print('finished creating 20000 business reviews')
+print('Finished creating 20000 records')
 
