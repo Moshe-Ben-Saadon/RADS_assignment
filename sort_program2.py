@@ -1,31 +1,20 @@
 import pymongo
 from datetime import datetime
+from RADS_assignment import Functions as fcn
 
 # Connect to MongoDB
 client = pymongo.MongoClient("mongodb+srv://"
                              "MBS:12345678MBS@cluster0.7fqbr.mongodb.net/Cluster0?retryWrites=true&w=majority")
-# Retrieve database
-db = client["advertisements"]
 
-# Retrieve collection
-ads_collection = db["records"]
-
-# Retrieve document and query the data to a local sorted list
-data = list()
 start_time = datetime.now()
-for x in ads_collection.find().sort("data", pymongo.ASCENDING):
-    data.append(x["data"])
-
-# Store the sorted data in a new table under a specific column
-sorted_records = {
-    'Sorting-step1': data
-}
-db.RESULTS.insert_one(sorted_records)
+data_chunks = fcn.data_retrieval(2000, 20000, client.advertisements.records)
+sorted_database = fcn.k_way_merge_sort(data_chunks)
 
 # Measure the duration of the process
 elapsed_time = datetime.now() - start_time
+print(elapsed_time)
+# # Store the time in the aforementioned table, in an appropriate column #TODO fix this
+# client.RESULTS.insert_one({'Sorting_step2_Process_time': elapsed_time.seconds})
 
-# Store the time in the aforementioned table, in an appropriate column
-db.RESULTS.insert_one({'Sorting_step1_Process_time': elapsed_time.seconds})
 
-print("debug here")
+
