@@ -28,4 +28,3 @@ elapsed_time = datetime.now() - start_time
 # Store the time in the aforementioned table, in an appropriate column
 db.RESULTS.insert_one({'Sorting_step1_Process_time': elapsed_time.seconds})
 
-print("debug here")

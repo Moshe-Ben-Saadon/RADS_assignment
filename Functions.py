@@ -1,7 +1,3 @@
-import heapq
-import multiprocessing
-
-import pymongo
 import math
 
 
@@ -36,6 +32,11 @@ def data_retrieval(chunk_size, total_size, database):
 
 
 def k_way_merge_sort(list_of_lists):
+    """
+    Implementation of k-way merge sort algorithm
+    :param list_of_lists: a list which contains unsorted arrays
+    :return: a single sorted arrays
+    """
     k_size = len(list_of_lists)
     sorted_list_of_lists = list()
 
@@ -49,11 +50,23 @@ def k_way_merge_sort(list_of_lists):
 
 
 def extract_value_by_key(key, list_of_dicts):
+    """
+    Discard any unneeded data that was retrieved from the database, and append the rest to a single list
+    :param key: key of relevant data in each dictionary
+    :param list_of_dicts: a list of dictionaries
+    :return: a list of strings which was retrieved from the given dictionaries
+    """
     list_of_values = [x[key] for x in list_of_dicts]
     return list_of_values
 
 
 def merge(chunks_stack, k):
+    """
+    A high function of merge-sort, which applies the k-way algorithm via recursive call of a single merge function
+    :param chunks_stack:
+    :param k:
+    :return:
+    """
     if k == 1:
         return chunks_stack[0]
     if k == 2:
@@ -70,19 +83,19 @@ def merge(chunks_stack, k):
 
 def merge_arrays(arr1, arr2, n1, n2):
     """
-
-    :param arr1:
-    :param arr2:
-    :param n1:
-    :param n2:
-    :return:
+    Merge two sorted arrays to a single sorted array.
+    :param arr1: 1st array
+    :param arr2: 2nd array
+    :param n1: length of 1st array
+    :param n2: length of 2nd array
+    :return: merged array
     """
     arr3 = [None] * (n1 + n2)
     i = 0
     j = 0
     k = 0
 
-    # Traverse both array
+    # Traverse both arrays
     while i < n1 and j < n2:
 
         # Check if current element
